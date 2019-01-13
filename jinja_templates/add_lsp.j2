@@ -1,0 +1,36 @@
+<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+   <node>pcc://{{pcc}}</node>
+   <name>{{lsp_name}}</name>
+      <arguments>
+         <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">
+            <delegate>true</delegate>
+            <administrative>true</administrative>
+         </lsp>
+         <endpoints-obj>
+            <ipv4>
+               <source-ipv4-address>{{src_ip}}</source-ipv4-address>
+               <destination-ipv4-address>{{dest_ip}}</destination-ipv4-address>
+            </ipv4>
+         </endpoints-obj>
+         <ero>
+         {% for prefix in ero_prefix -%}  
+            <subobject>
+               <loose>false</loose>
+               <ip-prefix>
+                  <ip-prefix>{{prefix}}/32</ip-prefix>
+               </ip-prefix>
+            </subobject>
+         {% endfor -%} 
+         </ero>
+    <bandwidth>
+     <ignore>false</ignore>
+      <bandwidth>{{bandwidth}}</bandwidth>
+    </bandwidth>
+    <lspa>
+     <ignore>false</ignore>
+     <setup-priority>{{setup_priority}}</setup-priority>
+     <hold-priority>{{hold_priority}}</hold-priority>  
+    </lspa>
+      </arguments>
+   <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology[topo:topology-id="pcep-topology"]</network-topology-ref>
+</input>

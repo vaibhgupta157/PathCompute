@@ -1,0 +1,17 @@
+<protocol xmlns="http://openconfig.net/yang/network-instance">
+    <name>{{instance_name}}</name>
+    <identifier xmlns:x="http://openconfig.net/yang/policy-types">x:BGP</identifier>
+    <bgp xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+        <global>
+            <config>
+                <router-id>{{router_id}}</router-id>
+                <as>{{local_as}}</as>
+            </config>
+            <afi-safis>
+                <afi-safi>
+                    <afi-safi-name>LINKSTATE</afi-safi-name>
+                </afi-safi>
+            </afi-safis>
+        </global>
+    </bgp>
+</protocol>

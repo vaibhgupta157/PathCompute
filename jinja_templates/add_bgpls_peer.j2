@@ -1,0 +1,23 @@
+<neighbor xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+    <neighbor-address>{{peer_ip}}</neighbor-address>
+    <timers>
+        <config>
+            <hold-time>{{hold_time}}</hold-time>
+            <connect-retry>{{connectretry_timer}}</connect-retry>
+        </config>
+    </timers>
+    <transport>
+        <config>
+            <remote-port>{{remote_port}}</remote-port>
+            <passive-mode>{{passive_mode}}</passive-mode>
+        </config>
+    </transport>
+    <config>
+        <peer-type>INTERNAL</peer-type>
+    </config>
+    <afi-safis>
+        <afi-safi>
+                    <afi-safi-name>LINKSTATE</afi-safi-name>
+        </afi-safi>
+    </afi-safis>
+</neighbor>

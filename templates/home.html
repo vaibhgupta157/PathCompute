@@ -1,0 +1,287 @@
+<!doctype html>
+<HEAD>
+<title>ODL-PCEP</title>
+<style>
+table#t01 tr:nth-child(even) {
+    background-color: #efe;
+}
+table#t01 tr:nth-child(odd) {
+   background-color: #fef;
+}
+table#t01 th {
+    background-color: grey;
+    color: black;
+}
+</style>
+<script type = "text/javascript" 
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script>
+function BGP_LS(){
+    if (document.getElementById("Create_BGP_instance").style.display === 'none'){ 
+          document.getElementById("Create_BGP_instance").style.display='block';
+          document.getElementById("BGP_LS_peer").style.display='block';
+          document.getElementById("topology_refresh").style.display='block';
+    } else{ 
+          document.getElementById("Create_BGP_instance").style.display='none';
+          document.getElementById("BGP_LS_peer").style.display='none';
+          document.getElementById("topology_refresh").style.display='none';
+    } 
+}
+
+function ls_peer(){
+    if (document.getElementById("get_ls_peers").style.display === 'none'){ 
+          document.getElementById("get_ls_peers").style.display='block';
+          document.getElementById("ls_peer_result").style.display='block';
+    } else{
+          document.getElementById("get_ls_peers").style.display='none' 
+          document.getElementById("ls_peer_result").style.display='none';
+    }
+    var list = 'Choose BGP-Instance:  <select id="bgp_instances">';
+    var json_data = bgp_instances();
+    for (var i = 0; i < json_data.bgp_instances.length; i++){
+          list += '<option value=' + json_data.bgp_instances[i].instance_name + '>' + json_data.bgp_instances[i].instance_name + '</option>';
+    }
+    list += '</select><button type="button" onclick="get_ls_peer()">Get BGP-LS Peer List</button>' 
+    document.getElementById("get_ls_peers").innerHTML = list;
+}
+
+function bgp_instances(){
+    var url = '/pce/bgp_instances/';
+    var data = get_url(url);
+    var json_output = JSON.parse(data); 
+    return json_output;
+}
+
+function get_ls_peer(){
+    var instance = document.getElementById("bgp_instances"); 
+    var url = '/pce/' + instance.options[instance.selectedIndex].value + '/get-ls-peers/'; 
+    var data = get_url(url); 
+    var json_data = JSON.parse(data);
+    var table_text = '<table style="width:30%" id="t01"><tr><th>Neighbor-Address</th><th>State</th><th>Remote-Port</th><th>AFI LINKSTATE Status</th></tr>';
+    var i
+    if (json_data.neighbors.length === 0){
+            document.getElementById("ls_peer_result").innerHTML = "";
+            window.alert("No BGP-LS Neighbor exists for instance. To add a neighbor click on Add LS peer");   
+    } else{
+            for(i = 0; i < json_data.neighbors.length; i++){
+                      table_text += '<tr><td>' + json_data.neighbors[i].neighbor_address + '</td><td>' + json_data.neighbors[i].state + '</td><td>' + json_data.neighbors[i].remote_port + '</td><td>' + json_data.neighbors[i].LINKSTATE_Status + '</td></tr>';           
+            }
+            table_text += '</table>'; 
+            document.getElementById("ls_peer_result").innerHTML = table_text; 
+    }
+}
+
+function PCEP(){
+    if (document.getElementById("pcc_list").style.display === 'none'){
+          document.getElementById("pcc_list").style.display='block';
+          document.getElementById("est_lsp").style.display='block';
+          document.getElementById("poss_lsps").style.display='block'
+    } else{
+          document.getElementById("pcc_list").style.display='none';
+          document.getElementById("est_lsp").style.display='none';
+          document.getElementById("poss_lsps").style.display='none';
+    }
+} 
+
+function input_pcc(){
+    if (document.getElementById("pcc_selection").style.display === 'none'){
+          document.getElementById("pcc_selection").style.display='block';
+          document.getElementById("estb_lsp_result").style.display='block';
+    } else{
+          document.getElementById("pcc_selection").style.display='none';
+          document.getElementById("estb_lsp_result").style.display='none';
+    } 
+    var list = 'Choose PCC:  <select id="PCCs">';
+    var json_data = pcc_list();
+    for (var i = 0; i < json_data.pcc_list.length; i++){
+          list += '<option value=' + json_data.pcc_list[i].ip_address + '>' + json_data.pcc_list[i].ip_address + '</option>';
+    }
+    list += '</select><BR><button type = "button" onclick = "estb_lsps()">Get LSP list</button>';   
+    document.getElementById("pcc_selection").innerHTML = list;
+}
+
+function pcc_list(){
+    var url = '/pce/pcc_list/';
+    var data = get_url(url);
+    var json_output = JSON.parse(data);
+    return json_output;
+}
+
+function assoc_pcc(){
+    var json_data = pcc_list();
+    var table_text = '<table style="width:30%" id="t01"><tr><th>Node Id</th><th>PCC ID</th><th>Synchronization Status</th></tr>';
+    var i
+    if (json_data.pcc_list.length === 0){
+          window.alert("No PCC is configured")  
+    } else{
+            for(i = 0; i < json_data.pcc_list.length; i++){
+                     table_text += '<tr><td>' + json_data.pcc_list[i].node_id + '</td><td>' + json_data.pcc_list[i].ip_address + '</td><td>' + json_data.pcc_list[i].sync_state + '</td></tr>';
+            }
+            table_text += '</table>';
+            if (document.getElementById("pcc_result").style.display === 'none'){
+                     document.getElementById("pcc_result").innerHTML = table_text;
+                     document.getElementById("pcc_result").style.display='block';
+            } else{
+                     document.getElementById("pcc_result").style.display='none';
+            }
+    }
+}
+
+function estb_lsps(){
+    var pcc = document.getElementById("PCCs");
+    var url = '/pce/established_lsps/' + pcc.options[pcc.selectedIndex].value; 
+    var data = get_url(url);
+    var json_data = JSON.parse(data);
+    var table_text = '<table style="width:30%" id="t01"><tr><th>Name</th><th>Tunnel-Id</th><th>Source</th><th>Destination</th><th>Setup-Priority</th><th>Hold-Priority</th><th>Hop-List</th><th>Bandwidth</th><th>Delegation</th><th>Operational-State</th></tr>'; 
+    var i
+    if (json_data.established_lsps.length === 0){
+            document.getElementById("estb_lsp_result").innerHTML = "";
+            window.alert("There is no LSP on the PCC");
+    } else{
+            for(i = 0; i < json_data.established_lsps.length; i++){
+                       table_text += '<tr><td>' + json_data.established_lsps[i].name + '</td><td>' + json_data.established_lsps[i].paths[0].tunnel_id + '</td><td>' + json_data.established_lsps[i].paths[0].source_ip + '</td><td>' + json_data.established_lsps[i].paths[0].destination_ip + '</td><td>' + json_data.established_lsps[i].paths[0].setup_priority + '</td><td>' + json_data.established_lsps[i].paths[0].hold_priority + '</td><td>'; 
+                       /*
+                       for(var j = 0; j < json_data.established_lsps[i].path[0].hop_list.length; j++){
+                                     table_text +=  json_data.established_lsps[i].paths[0].hop_list[j];
+                       }
+                       */
+                       table_text += '</td><td>' + json_data.established_lsps[i].paths[0].bandwidth + '</td><td>' + json_data.established_lsps[i].paths[0].delegation + '</td><td>' + json_data.established_lsps[i].paths[0].operational_state + '</td></tr>'; 
+            }
+            table_text += '</table>';
+            document.getElementById("estb_lsp_result").innerHTML = table_text;
+    }
+
+} 
+
+function input_lsps(){
+    if (document.getElementById("input_lsp").style.display === 'none'){
+          document.getElementById("input_lsp").style.display='block';
+          document.getElementById("poss_lsp_result").style.display='block'; 
+    } else{
+          document.getElementById("input_lsp").style.display='none';
+          document.getElementById("poss_lsp_result").style.display='none';
+    }
+    var list = 'Choose PCC:  <select id="PCC" name="pcc">';
+    var json_data = pcc_list();
+    for (var i = 0; i < json_data.pcc_list.length; i++){
+          list += '<option value=' + json_data.pcc_list[i].ip_address + '>' + json_data.pcc_list[i].ip_address + '</option>';
+    }
+    list += '</select>'; 
+    document.getElementById("input_pcc").innerHTML = list;     
+}
+
+function poss_lsps(){
+    var url = '/pce/possible_lsps/';
+    var element = document.getElementById("input_lsp").elements;
+    var inputs = {};
+    var pcc = document.getElementById("PCC");
+    document.getElementById("poss_lsp_result").innerHTML = pcc.options[pcc.selectedIndex].value;
+    inputs["pcc"] = pcc.options[pcc.selectedIndex].value; 
+    for (var k=1; k < element.length; k++){
+          inputs[element[k].name] = element[k].value;   
+    }
+    var json_inputs = JSON.stringify(inputs);
+    var json_data = null;
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: json_inputs,
+        async: false,
+        processData: false,
+        success: function( data, textStatus, jQxhr ){
+               json_data = JSON.stringify(data);
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+               console.log( errorThrown );
+        }
+    });
+    var parse_data = JSON.parse(json_data); 
+    var table_text = '<table style="width:30%" id="t01"><tr><th>Selection</th><th>Path-Id</th><th>Hop-List</th><th>Hop Count</th><th>IGP Cost</th><th>TE Cost</th></tr>'; 
+    if (parse_data.possible_paths.length === 0){
+          document.getElementById("poss_lsp_result").innerHTML = "";
+          window.alert("No Possible LSP with given Constraints");
+    } else{
+          for(var i = 0; i < parse_data.possible_paths.length; i++){
+                       table_text += '<tr><td><input type="radio" name="path_selection" value=' + parse_data.possible_paths[i].path_id + '></td><td>' + parse_data.possible_paths[i].path_id + '</td><td>' + parse_data.possible_paths[i].path_id + '</td><td>' + parse_data.possible_paths[i].hop_count + '</td><td>' + parse_data.possible_paths[i].igp_cost + '</td><td>' + parse_data.possible_paths[i].ted_cost + '</td></tr>' 
+          }
+          table_text += '</table><br><button type="button" onclick ="push_lsp()">Push Selected LSP</button>';
+          document.getElementById("poss_lsp_result").innerHTML = table_text;  
+    }
+}
+
+function push_lsp(){
+    var selection = document.getElementsByName('path_selection');
+    var value = null;
+    for (var i = 0, length = selection.length; i < length; i++) { 
+          if (selection[i].checked){
+                   value = selection[i].value;
+                   break;
+          }
+    }
+    if (i === length){
+          window.alert("Please select the path you want to push");
+          return;
+    } 
+    url = '/pce/push_lsp/' + value + '/';
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        async: false,
+        processData: false,
+        success: function( data, textStatus, jQxhr ){
+               window.alert("LSP is pushed successfully");
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+               console.log( errorThrown );
+        }
+    });
+}
+
+function get_url(url){
+    var request = new XMLHttpRequest();
+    request.open('GET', url, false);
+    request.send();
+    return request.responseText; 
+}
+
+
+</script>
+</HEAD>
+<BODY>
+<button type="button" onclick=BGP_LS()>BGP LS</button><BR>
+<button id = "Create_BGP_instance" type="button" style="display:none">Create BGP Instance</button><BR>
+
+<button id = "BGP_LS_peer" type="button" style="display:none" onclick="ls_peer()">BGP LS Peer</button><BR>
+<p id = "get_ls_peers" style="display:none"></p>
+<p id = "ls_peer_result" style="display:none"></p>
+
+<button id = "topology_refresh" type="button" style="display:none">Topology Refresh</button><BR><BR>
+
+<button type="button" onclick="PCEP()">PCEP</button><BR><BR>
+<button id="pcc_list" type="button" style="display:none" onclick="assoc_pcc()">PCC List</button><BR>
+<p id = "pcc_result" style="display:none"></p>
+
+<button id="est_lsp" type="button" style="display:none" onclick="input_pcc()">Established LSPs</button> 
+<p id = "pcc_selection" style="display:none"></p>
+<p id = "estb_lsp_result" style="display:none"></p>
+
+<button id="poss_lsps" type="button" style="display:none" onclick="input_lsps()">Create an LSP</button>
+<form id = "input_lsp" name="lsp_form" style="display:none">
+<p id = "input_pcc"></p><br>
+Tunnel Name: <input name="lsp_name" type="text" min="2" max="100" required/><br>
+Source IP: <input name="src_ip" type="text" min="2" max="100" required/><br>
+Destination IP: <input name="dest_ip" type="text" min="2" max="100" required/><br>
+Setup Priority: <input name="setup_priority" type="number" required/><br>
+Hold Priority: <input name="hold_priority" type="number" required/><br>
+Bandwidth(bps): <input name="bandwidth" type="number"  required/><br>
+Colors: <input name="color_list" type="text" min="2" max="100" /><br>
+<button type='button' onclick = 'poss_lsps()'>Get Possible LSPs</button>
+</form>
+<p id = "poss_lsp_result" style="display:none"></p> 
+</BODY>
+</HTML>

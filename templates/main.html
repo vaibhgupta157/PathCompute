@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCE Topology</title>
+    <script type="text/javascript" src="{{url_for('static', filename='vivagraph.js')}}"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        function main () {
+            // Step 1. We create a graph object.
+            var graph = Viva.Graph.graph();
+            // Step 2. We add nodes and edges to the graph:
+            {% for node in nodes %}
+            graph.addNode({{ node.node_id|tojson }}, { router_id: {{ node.router_id|tojson }}, prefixes: {{ node.prefixes|tojson}} });
+            {% endfor %}
+
+            {% for link in links %}
+            graph.addLink({{ link.link_src|tojson }}, {{ link.link_dest|tojson }}, { nw_type: {{ link.nw_type|tojson }} });
+            {% endfor %}
+            /* Note: graph.addLink() creates new nodes if they are not yet
+               present in the graph. Thus calling this method is equivalent to:
+               graph.addNode(1);
+               graph.addNode(2);
+               graph.addLink(1, 2);
+            */
+
+            var graphics = Viva.Graph.View.svgGraphics(),
+                nodeSize = 50,
+                highlightRelatedNodes = function(nodeId, isOn) {
+                   // just enumerate all realted nodes and update link color:
+                   graph.forEachLinkedNode(nodeId, function(node, link){
+                       var linkUI = graphics.getLinkUI(link.id);
+                       if (linkUI) {
+                           // linkUI is a UI object created by graphics below
+                           linkUI.attr('stroke', isOn ? 'red' : link.data.nw_type == 'Broadcast' ? 'blue' : 'gray');
+                       }
+                   });
+                };
+
+            graphics.node(function(node) {
+                var ui = Viva.Graph.svg('g'),
+                  // Create SVG text element with user id as content
+                  svgText = Viva.Graph.svg('text').attr('y', '-4px').text(node.data.router_id),
+                  img = Viva.Graph.svg('image')
+                     .attr('width', nodeSize)
+                     .attr('height', nodeSize)
+                     .link('{{url_for('static', filename='pce_rtr.png')}}');
+
+                $(ui).hover(function() { // mouse over
+                    highlightRelatedNodes(node.id, true);
+                }, function() { // mouse out
+                    highlightRelatedNodes(node.id, false);
+                });
+                ui.append(svgText);
+                ui.append(img);
+                return ui;
+            }).placeNode(function(nodeUI, pos) {
+                nodeUI.attr('transform',
+                            'translate(' +
+                                  (pos.x - nodeSize/2) + ',' + (pos.y - nodeSize/2) +
+                            ')');
+            });
+
+            graphics.link(function(link){
+                return Viva.Graph.svg('path')
+                           .attr('stroke', link.data.nw_type == 'Broadcast' ? 'blue' : 'gray');
+            }).placeLink(function(linkUI, fromPos, toPos) {
+                // linkUI - is the object returend from link() callback above.
+                var data = 'M' + fromPos.x + ',' + fromPos.y +
+                           'L' + toPos.x + ',' + toPos.y;
+                // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
+                // is a common way of rendering paths in SVG:
+                linkUI.attr("d", data);
+            });
+
+
+            // Step 3. Render the graph.
+
+            var renderer = Viva.Graph.View.renderer(graph, {
+                    graphics : graphics
+                });
+            renderer.run();
+
+            //var renderer = Viva.Graph.View.renderer(graph);
+            //renderer.run();
+        }
+    </script>
+
+    <style type="text/css" media="screen">
+        html, body, svg { width: 100%; height: 100%;}
+    </style>
+</head>
+<body onload='main()'>
+
+</body>
+</html>
