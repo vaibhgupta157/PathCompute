@@ -2845,3 +2845,113 @@ INFO:root:Url get Status: 200
 INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
 INFO:root:Url get Status: 200
 INFO:werkzeug:210.210.115.237 - - [13/Jan/2019 12:38:25] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:31:28] "GET /pce/lab-topology/ HTTP/1.1" 405 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:31:32] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:31:32] "GET /static/vivagraph.js HTTP/1.1" 304 -
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:31:33] "GET /static/pce_rtr.png HTTP/1.1" 304 -
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:31:33] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:36:24] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:42:00] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:49:08] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:52:47] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:52:51] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 10:53:04] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 11:01:08] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 11:01:11] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 11:29:13] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 11:38:54] "GET /pce/ HTTP/1.1" 200 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 12:57:23] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 13:26:40] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 14:18:57] "GET /pce/ HTTP/1.1" 200 -
