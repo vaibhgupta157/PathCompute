@@ -1,5 +1,5 @@
 # PathCompute
-PathCompute is developed on top of ODL to represent topology in UI based on information from Link-State database. It also exposes REST APIs for calculating constraints based LSPs for TE and getting IGP path between a pair of src and dest
+PathCompute is developed on top of ODL to represent topology in UI based on information from Link-State database. It also exposes REST APIs for calculating constraints based LSPs for TE and getting IGP path between a pair of src and dest. 
 
 # PreRequisites:
 apt-get install python-pip

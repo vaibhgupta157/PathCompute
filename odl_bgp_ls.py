@@ -627,6 +627,3 @@ def get_reported_lsp(pcc):
       except KeyError: 
             return str("There is no Tunnel configured in PCC: %s" % (pcc))
       return lsp_list[:]
- 
-if __name__ == "__main__":
-      print topology_rep()
