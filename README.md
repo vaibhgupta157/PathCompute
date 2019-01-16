@@ -42,6 +42,6 @@ POST http://xx.xx.xx.xx:9521/pce/add-ls-peer/ \
  
 Once Neighbor is UP:\
 Open Url in browser:\
-http://xx.xx.xx.xx:9521/pce/ \
+http://xx.xx.xx.xx:9521/pce/ 
 
 refer REST.doc for more API calls
