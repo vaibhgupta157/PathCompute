@@ -2955,3 +2955,15 @@ INFO:root:Url get Status: 200
 INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
 INFO:root:Url get Status: 200
 INFO:werkzeug:202.144.77.234 - - [14/Jan/2019 14:18:57] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:210.210.115.237 - - [15/Jan/2019 13:30:22] "GET /pce/lab-topology/ HTTP/1.1" 405 -
+INFO:werkzeug:210.210.115.237 - - [15/Jan/2019 13:30:22] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 100.65.181.93
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [15/Jan/2019 13:30:29] "GET /pce/ HTTP/1.1" 200 -
