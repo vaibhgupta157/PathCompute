@@ -293,7 +293,9 @@ def get_topo_graph():
             ted_cost = 0 
             if 'te-default-metric' in link['l3-unicast-igp-topology:igp-link-attributes']['ospf-topology:ospf-link-attributes']['ted'].keys():
                   ted_cost = link['l3-unicast-igp-topology:igp-link-attributes']['ospf-topology:ospf-link-attributes']['ted']['te-default-metric'] 
-            igp_cost = link['l3-unicast-igp-topology:igp-link-attributes']['metric']
+            igp_cost = 0
+            if 'metric' in link['l3-unicast-igp-topology:igp-link-attributes'].keys():
+                  igp_cost = link['l3-unicast-igp-topology:igp-link-attributes']['metric']
             new_link = links(src_node_id, dest_node_id, src_ip, dest_ip, nw_type, ted, phy_bw, color, resv_bw, unresv_bw, igp_cost, ted_cost)
             link_list.append(new_link)
       graph = create_graph(node_list, link_list) 
