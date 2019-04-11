@@ -8,7 +8,7 @@ pip install flask requests
 # ODL Setup:
 cd karaf**\
 ./bin/karaf\
-feature:install odl-restconf odl-bgpcep-bgp-l3vpn odl-bgpcep-bgp-openconfig-state \
+feature:install odl-restconf odl-bgpcep-bgp odl-bgpcep-bgp-openconfig-state odl-bgpcep-pcep\
 ^d \
 ./bin/start
 

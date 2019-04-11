@@ -3402,3 +3402,182 @@ INFO:werkzeug:210.210.115.237 - - [19/Mar/2019 14:33:00] "GET /pce/ HTTP/1.1" 20
 INFO:werkzeug:210.210.115.237 - - [19/Mar/2019 14:33:00] "GET /static/vivagraph.js HTTP/1.1" 200 -
 INFO:werkzeug:210.210.115.237 - - [19/Mar/2019 14:33:01] "GET /favicon.ico HTTP/1.1" 404 -
 INFO:werkzeug:210.210.115.237 - - [19/Mar/2019 14:33:01] "GET /static/pce_rtr.png HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:34:04] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:34:04] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:root:Url get Status: 200
+INFO:root:{"errors":{"error":[{"error-type":"protocol","error-tag":"malformed-message","error-message":"Error parsing input: Schema for node with name bgp-linkstate-topology and namespace urn:opendaylight:params:xml:ns:yang:odl-bgp-topology-types does not exist at AbsoluteSchemaPath{path=[(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology, (urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology, (urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology-types]}","error-info":"Schema for node with name bgp-linkstate-topology and namespace urn:opendaylight:params:xml:ns:yang:odl-bgp-topology-types does not exist at AbsoluteSchemaPath{path=[(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology, (urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology, (urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)topology-types]}"}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:40:44] "POST /pce/bgp_instances/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:{"errors":{"error":[{"error-type":"protocol","error-tag":"data-exists","error-message":"Data already exists for path: /(http://openconfig.net/yang/network-instance?revision=2015-10-18)network-instances/network-instance/network-instance[{(http://openconfig.net/yang/network-instance?revision=2015-10-18)name=global-bgp}]/protocols/protocol/protocol[{(http://openconfig.net/yang/network-instance?revision=2015-10-18)identifier=(http://openconfig.net/yang/policy-types?revision=2015-10-09)BGP, (http://openconfig.net/yang/network-instance?revision=2015-10-18)name=eve-topology}]"}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:42:00] "POST /pce/bgp_instances/ HTTP/1.1" 400 -
+INFO:root:Url get Status: 200
+ERROR:root:No BGP-LS instance configured
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:42:16] "GET /pce/bgp_instances/ HTTP/1.1" 400 -
+INFO:root:Url get Status: 200
+INFO:root:{"errors":{"error":[{"error-type":"protocol","error-tag":"data-exists","error-message":"Data already exists for path: /(http://openconfig.net/yang/network-instance?revision=2015-10-18)network-instances/network-instance/network-instance[{(http://openconfig.net/yang/network-instance?revision=2015-10-18)name=global-bgp}]/protocols/protocol/protocol[{(http://openconfig.net/yang/network-instance?revision=2015-10-18)identifier=(http://openconfig.net/yang/policy-types?revision=2015-10-09)BGP, (http://openconfig.net/yang/network-instance?revision=2015-10-18)name=eve-topology}]"}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:42:45] "POST /pce/bgp_instances/ HTTP/1.1" 400 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:{"errors":{"error":[{"error-type":"protocol","error-tag":"data-missing","error-message":"Data does not exist for path: /(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology"}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 14:59:33] "DELETE /pce/bgp_instances/eve-topology HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 </title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /restconf/config/network-topology:network-topology/. Reason:
+<pre>    Not Found</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+</body>
+</html>
+
+INFO:root:<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 </title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols. Reason:
+<pre>    Not Found</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+</body>
+</html>
+
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:32:11] "DELETE /pce/bgp_instances/eve-topology HTTP/1.1" 200 -
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:33:44] "POST /pce/bgp_instances/ HTTP/1.1" 400 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:34:06] "POST /pce/bgp_instances/ HTTP/1.1" 400 -
+INFO:root:Url get Status: 200
+INFO:root:BGP Instance information fetched successfully
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:34:15] "GET /pce/bgp_instances/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:35:18] "POST /pce/add-ls-peer/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:35:57] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:35:59] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:36:01] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:36:02] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:39:19] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:39:21] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:39:22] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 404
+INFO:root:{"errors":{"error":[{"error-type":"application","error-tag":"data-missing","error-message":"Request could not be completed because the relevant data model content does not exist "}]}}
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:39:23] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:40:00] "POST /pce/topology_reset/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:40:09] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:40:12] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+INFO:werkzeug:202.144.77.234 - - [10/Apr/2019 15:40:32] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:38:01] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:38:01] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+ERROR:root:'node'
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:44:57] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:Could not get Link-State topology information from ODL
+ERROR:root:'node'
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:47:47] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:51:53] "GET /pce/ HTTP/1.1" 200 -
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:51:53] "GET /static/vivagraph.js HTTP/1.1" 200 -
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 05:51:54] "GET /static/pce_rtr.png HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589

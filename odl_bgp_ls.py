@@ -21,7 +21,7 @@ def get_url(url):
       try:
             response =  requests.get(url, headers = headers, auth = (ODL_USER, ODL_PASS), verify=False)
             logging.info("Url get Status: %s" % response.status_code)
-            if response.status_code in [200]:
+            if response.status_code in [200, 204]:
                   return response.json()
             else:
                   logging.info(str(response.text))
@@ -250,15 +250,17 @@ def get_topo_graph():
                   if node_id in nonarea_prefixes.keys():
                         prefixes = prefixes + nonarea_prefixes[node_id]
                   pcc = ''
-                  for pcc_node in get_pcep['topology'][0]['node']:
-                        if pcc_node['network-topology-pcep:path-computation-client']['ip-address'] == router_id:
-                              pcc = pcc_node['node-id']
-                              break
+                  if 'node' in get_pcep['topology'][0].keys():
+                        for pcc_node in get_pcep['topology'][0]['node']:
+                              if pcc_node['network-topology-pcep:path-computation-client']['ip-address'] == router_id:
+                                    pcc = pcc_node['node-id']
+                                    break
                   new_node = nodes(node_id, router_id, prefixes, pcc)
                   node_ids.append(node_id)
                   node_list.append(new_node)
-      except KeyError:
+      except Exception as e:
             logging.error('Could not get Link-State topology information from ODL') 
+            logging.error(e)
             return "Could not get Link-State topology information from ODL", "Could not get Link-State topology information from ODL", "Could not get Link-State topology information from ODL" 
       link_list = []
       for link in topo['topology'][0]['link']:
