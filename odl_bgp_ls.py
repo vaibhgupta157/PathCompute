@@ -615,9 +615,11 @@ def get_reported_lsp(pcc):
                   for path in lsps['path']:
                         lsp = {}
                         prefix_list = []
-                        for prefix in path['ero']['subobject']:
-                              prefix_list.append(prefix['ip-prefix']['ip-prefix'])
-                        lsp['hop_list'] = prefix_list[:]
+                        lsp['hop_list'] = []
+                        if 'subobject' in path['ero']:
+                              for prefix in path['ero']['subobject']:
+                                    prefix_list.append(prefix['ip-prefix']['ip-prefix'])
+                              lsp['hop_list'] = prefix_list[:]
                         lsp['operational_state'] = path['odl-pcep-ietf-stateful07:lsp']['operational']
                         lsp['source_ip'] = path['odl-pcep-ietf-stateful07:lsp']['tlvs']['lsp-identifiers']['ipv4']['ipv4-tunnel-sender-address']
                         lsp['destination_ip'] = path['odl-pcep-ietf-stateful07:lsp']['tlvs']['lsp-identifiers']['ipv4']['ipv4-tunnel-endpoint-address']
@@ -628,6 +630,10 @@ def get_reported_lsp(pcc):
                         lsp['hold_priority'] = path['lspa']['hold-priority']
                         dict['paths'].append(lsp) 
                   lsp_list.append(dict)
-      except KeyError: 
+      except KeyError as e:
+            logging.error(e)
             return str("There is no Tunnel configured in PCC: %s" % (pcc))
+      except Exception as e:
+            logging.error(e)
+            return str("Error while retrieving LSP information from PCC: %s" % (pcc))
       return lsp_list[:]

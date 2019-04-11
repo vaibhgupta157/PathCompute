@@ -3581,3 +3581,136 @@ INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', relo
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:202.144.77.234 - - [11/Apr/2019 06:54:30] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:02:58] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Successfully got PCC list
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:04:11] "GET /pce/pcc_list/ HTTP/1.1" 200 -
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:04:47] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:04:48] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:08:57] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:08:57] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:08:58] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:08:58] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+ERROR:root:No path with given constraints
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:10:28] "POST /pce/possible_lsps/ HTTP/1.1" 400 -
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:10:53] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 08:10:53] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:19:48] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:19:48] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:21:33] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:21:33] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 500 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:22:08] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+ERROR:root:'subobject'
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 09:22:09] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 400 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:16:45] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:16:46] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:21:16] "GET /pce/established_lsps/10.10.10.10 HTTP/1.1" 308 -
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:21:16] "GET /pce/established_lsps/10.10.10.10/ HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug: * Detected change in '/home/user/PathCompute/odl_bgp_ls.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:24:34] "GET /pce/pcc_list/ HTTP/1.1" 500 -
+INFO:werkzeug: * Running on http://0.0.0.0:9521/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 185-517-589
+INFO:root:Url get Status: 200
+INFO:root:Successfully got PCC list
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:24:57] "GET /pce/pcc_list/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:44:35] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 10:58:28] "GET /pce/ HTTP/1.1" 200 -
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:root:Url get Status: 200
+INFO:werkzeug:210.210.115.237 - - [11/Apr/2019 11:03:05] "GET /pce/ HTTP/1.1" 200 -
