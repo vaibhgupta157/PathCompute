@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCE Topology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#possiblelsps").modal('show');
+        });
+    </script>
+</head>
+
+<body>
+                <div id="possiblelsps" class="modal fade in" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">List of Possible LSPs</h4>
+                          </div>
+                          <div class="modal-body">
+                              <form action ="{{ url_for('push_lsp') }}" method = "POST">
+                                    <table id="lspeers" class="table table-bordered table-striped mb-0" style="margin-bottom: 0">
+                                            <thead class="thead-dark">
+                                              <tr>
+                                                <th width="10%"></th>
+                                                <th>Path ID</th>
+                                                <th>Hop Count</th>
+                                                <th>Next Hop List</th>
+                                                <th>IGP Cost</th>
+                                                <th>TED Cost</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for path in path_list %}
+                                              <tr>
+                                                <td width="10%"><input type="radio" name="path_id" value="{{ path['path_id'] }}"></td>
+                                                <td>{{ path['path_id'] }}</td>
+                                                <td>{{ path['hop_count'] }}</td>
+                                                <td>{{ path['next_hop_list'] }}</td>
+                                                <td>{{ path['igp_cost'] }}</td>
+                                                <td>{{ path['ted_cost'] }}</td>
+                                              </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                        </table>
+                              <p><button type="submit" class="btn btn-info btn-lg">Push LSP</button></p>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                              <form action ="{{ url_for('home') }}" method = "GET">
+                                  <button type="submit" class="btn btn-default btn-md">Close</button>
+                              </form>
+                          </div>
+                        </div>  
+                      </div>
+                      </div>
+</body>
+</html>

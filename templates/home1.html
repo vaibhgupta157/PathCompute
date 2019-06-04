@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCE Topology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='block_ip.png') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{{url_for('static', filename='vivagraph.js')}}"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        function main () {
+            // Step 1. We create a graph object.
+            var graph = Viva.Graph.graph();
+            // Step 2. We add nodes and edges to the graph:
+            {% for node in nodes %}
+            graph.addNode({{ node.node_id|tojson }}, { router_id: {{ node.router_id|tojson }}, prefixes: {{ node.prefixes|tojson}} });
+            {% endfor %}
+
+            {% for link in links %}
+            graph.addLink({{ link.link_src|tojson }}, {{ link.link_dest|tojson }}, { nw_type: {{ link.nw_type|tojson }} });
+            {% endfor %}
+            /* Note: graph.addLink() creates new nodes if they are not yet
+               present in the graph. Thus calling this method is equivalent to:
+               graph.addNode(1);
+               graph.addNode(2);
+               graph.addLink(1, 2);
+            */
+
+            var graphics = Viva.Graph.View.svgGraphics(),
+                nodeSize = 50,
+                highlightRelatedNodes = function(nodeId, isOn) {
+                   // just enumerate all realted nodes and update link color:
+                   graph.forEachLinkedNode(nodeId, function(node, link){
+                       var linkUI = graphics.getLinkUI(link.id);
+                       if (linkUI) {
+                           // linkUI is a UI object created by graphics below
+                           linkUI.attr('stroke', isOn ? 'red' : link.data.nw_type == 'Broadcast' ? 'blue' : 'gray');
+                       }
+                   });
+                };
+
+            graphics.node(function(node) {
+                var ui = Viva.Graph.svg('g'),
+                  // Create SVG text element with user id as content
+                  svgText = Viva.Graph.svg('text').attr('y', '-4px').text(node.data.router_id),
+                  img = Viva.Graph.svg('image')
+                     .attr('width', nodeSize)
+                     .attr('height', nodeSize)
+                     .link('{{url_for('static', filename='pce_rtr.png')}}');
+
+                $(ui).hover(function() { // mouse over
+                    highlightRelatedNodes(node.id, true);
+                }, function() { // mouse out
+                    highlightRelatedNodes(node.id, false);
+                });
+                ui.append(svgText);
+                ui.append(img);
+                return ui;
+            }).placeNode(function(nodeUI, pos) {
+                nodeUI.attr('transform',
+                            'translate(' +
+                                  (pos.x - nodeSize/2) + ',' + (pos.y - nodeSize/2) +
+                            ')');
+            });
+
+            graphics.link(function(link){
+                return Viva.Graph.svg('path')
+                           .attr('stroke', link.data.nw_type == 'Broadcast' ? 'blue' : 'gray');
+            }).placeLink(function(linkUI, fromPos, toPos) {
+                // linkUI - is the object returend from link() callback above.
+                var data = 'M' + fromPos.x + ',' + fromPos.y +
+                           'L' + toPos.x + ',' + toPos.y;
+                // 'Path data' (http://www.w3.org/TR/SVG/paths.html#DAttribute )
+                // is a common way of rendering paths in SVG:
+                linkUI.attr("d", data);
+            });
+
+
+            // Step 3. Render the graph.
+
+            var renderer = Viva.Graph.View.renderer(graph, {
+                    graphics : graphics,
+                    container  : document.getElementById('topo')
+                });
+            renderer.run();
+
+            //var renderer = Viva.Graph.View.renderer(graph);
+            //renderer.run();
+        }
+    </script>
+
+    <style type="text/css" media="screen">
+        html, body, svg { width: 100%; height: 100%;}
+    </style>
+</head>
+
+<body onload='main()'>
+    <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  {{message}}
+                  </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+          
+        
+        <div class="modal-body row">
+        <div class="col-md-4">
+            <h3>BGP-LS</h3>
+            <h4>BGP Instance: {{ BGP_Instance }}<br></h4>
+            <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#addbgpinstance">Add Instance</button>
+            <!-- Modal -->
+      
+            <div id="addbgpinstance" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add BGP Instance</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <form action ="{{ url_for('add_bgp_instances') }}" method = "POST">
+                  Instance Name: <br>
+                  <input type="text" name="instance_name"><br>
+                  Router id: <br>
+                  <input type="text" name="router_id"><br>
+                  Local AS: <br>
+                  <input type="text" name="local_as"><br>
+                  <p><button type="submit" class="btn btn-info btn-lg">Add Instance</button></p>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>  
+          </div>
+          </div>
+
+          <div style="display:inline-block;">
+          <form action="{{ url_for('del_bgp_instances', instance_name=BGP_Instance) }}" method="POST">
+                <button name="delinstance" type="submit" class="btn btn-info btn-md" data-toggle="modal">Delete Instance</button>
+          </form>
+        </div>
+
+        <h4>LS Peers</h4>
+        <form action="{{ url_for('del_bgpls_peer') }}" method="POST">
+          {% if neighbors %}
+          <table id="lspeers" class="table table-bordered table-striped mb-0" style="margin-bottom: 0">
+            <thead class="thead-dark">
+              <tr>
+                <th width="10%"></th>
+                <th>Peer IP</th>
+                <th>LinkState</th>
+                <th>State</th>
+                <th>Uptime</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for neighbor in neighbors %}
+              <tr>
+                <td width="10%"><input type="radio" name="peer_ip" value="{{ neighbor['neighbor_address'] }}"></td>
+                <td>{{ neighbor['neighbor_address'] }}</td>
+                <td>{{ neighbor['LINKSTATE_Status'] }}</td>
+                <td>{{ neighbor['state'] }}</td>
+                <td>{{ neighbor['uptime'] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+          {% endif %}
+        
+          <div style="display:inline-block;">
+          
+          <button name="delpeer" type="submit" class="btn btn-info btn-md" data-toggle="modal">Delete Peer</button>
+          </div>
+            <!-- Modal -->
+            </form>
+        
+            <div style="display:inline-block;">
+            <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#addlspeer">Add Peer</button>
+            <div id="addlspeer" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add LS Peer</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <form action ="{{ url_for('add_bgpls_peer') }}" method = "POST">
+                  Peer IP: <br>
+                  <input type="text" name="peer_ip"><br><br>
+                  <p><button type="submit" class="btn btn-info btn-lg">Add Peer</button></p>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>  
+          </div>
+          </div>
+          </div>
+          <form action="{{ url_for('Topology_reset') }}" method="POST">
+            <button name="delinstance" type="submit" class="btn btn-info btn-md" data-toggle="modal">Topology Reset</button>
+          </form>
+           <br> <h4>Tunnel Manager</h4>
+                      <div class="dropdown">
+                      <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">Get PCCs<span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                      <li>
+                      <form action ="{{ url_for('established_lsps') }}" method = "POST">
+                      <table id="PCCs" class="table table-bordered table-striped mb-0" style="margin-bottom: 0">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th width="10%"></th>
+                              <th>PCC</th>
+                              <th>Sync State</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for pcc in pccs %}
+                            <tr>
+                              <td width="10%"><input type="radio" name="pcclient" value="{{ pcc['ip_address'] }}"></td>
+                              <td>{{ pcc['ip_address'] }}</td>
+                              <td>{{ pcc['sync_state'] }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                      </table>
+                      <p><button type="submit" class="btn btn-info btn-lg">Get Established Tunnels</button></p>
+                      </form>
+                    </li>
+                    </ul>
+
+                    <button class="btn btn-block dropdown-toggle" type="button" data-toggle="modal" data-target="#createtunnel">Create Tunnel<span class="caret"></span></button>
+                    <div id="createtunnel" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Enter tunnel parameters</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                              <form action ="{{ url_for('lsps_with_constraints') }}" method = "POST">
+                              PCC: <br>
+                              <input type="text" name="pcc"><br>
+                              LSP Name: <br>
+                              <input type="text" name="lsp_name"><br>
+                              Source IP: <br>
+                              <input type="text" name="src_ip"><br>
+                              Destination IP: <br>
+                              <input type="text" name="dest_ip"><br>
+                              Setup Priority: <br>
+                              <input type="text" name="setup_priority"><br>
+                              Hold Priority: <br>
+                              <input type="text" name="hold_priority"><br>
+                              Bandwidth: <br>
+                              <input type="text" name="bandwidth"><br>
+                              Color List: <br>
+                              <input type="text" name="color_list"><br><br>
+                              <p><button type="submit" class="btn btn-info btn-lg">Get Possible LSPs</button></p>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>  
+                      </div>
+                      </div>
+                        
+                    </div>
+        
+
+          </div>
+          
+          <div class="col-md-8" id="topo">
+            
+          </div>
+        </div>
+        </div>
+        </body>
+        </html>

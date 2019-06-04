@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCE Topology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#estblsps").modal('show');
+        });
+    </script>
+</head>
+
+<body>
+                <div id="estblsps" class="modal fade in" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">List of Established LSPs</h4>
+                          </div>
+                          <div class="modal-body">
+                              <form action ="{{ url_for('remove_lsp') }}" method = "POST">
+                                    <table id="lspeers" class="table table-bordered table-striped mb-0" style="margin-bottom: 0">
+                                            <thead class="thead-dark">
+                                              <tr>
+                                                <th width="10%"></th>
+                                                <th>Name</th>
+                                                <th>Tunnel Id</th>
+                                                <th>Source IP</th>
+                                                <th>Destination IP</th>
+                                                <th>Setup Priority</th>
+                                                <th>Hold Priority</th>
+                                                <th>Bandwidth</th>
+                                                <th>Delegation</th>
+                                                <th>Operational State</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for lsp in established_lsps %}
+                                              <tr>
+                                                <td width="10%" rowspan="{{ lsp['paths'] | count }}"><input type="radio" name="lsp_name" value="{{ lsp['name'] }}"></td>
+                                                <td rowspan="{{ lsp['paths'] | count }}">{{ lsp['name'] }}</td>
+                                                {% for path in lsp['paths'] %}
+                                                <td>{{ path['tunnel_id'] }}</td>
+                                                <td>{{ path['source_ip'] }}</td>
+                                                <td>{{ path['destination_ip'] }}</td>
+                                                <td>{{ path['setup_priority'] }}</td>
+                                                <td>{{ path['hold_priority'] }}</td>
+                                                <td>{{ path['bandwidth'] }}</td>
+                                                <td>{{ path['delegation'] }}</td>
+                                                <td>{{ path['operational_state'] }}</td>
+                                                {% endfor %}
+                                              </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                        </table>
+                              <p><button type="submit" class="btn btn-info btn-lg">Delete Tunnel</button></p>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                                <form action ="{{ url_for('home') }}" method = "GET">
+                                        <button type="submit" class="btn btn-default btn-md">Close</button>
+                                </form>
+                          </div>
+                        </div>  
+                      </div>
+                      </div>
+</body>
+</html>
