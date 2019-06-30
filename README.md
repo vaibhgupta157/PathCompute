@@ -21,27 +21,5 @@ ODL_PASS = "admin"
 # Run pce_server.py
 python pce_server.py
 
-REST APIs:\
-Create BGP instance:\
-POST http://xx.xx.xx.xx:9521/pce/bgp_instances/ \
-  {\
-    "instance_name" : "name",\
-    "router_id" : "xx.xx.xx.xx",\
-    "local_as" : "AS No"\
-  }
-  
-Add a BGP-LS Neighbor:\
-POST http://xx.xx.xx.xx:9521/pce/add-ls-peer/ \
-  {\
-    "peer_ip" : "xx.xx.xx.xx",\
-    "hold_time" : "90",\
-    "connectretry_timer" : "10",\
-    "remote_port" : "179",\
-    "passive_mode" : "false"\
-  }
- 
-Once Neighbor is UP:\
-Open Url in browser:\
+Open in Browser:\
 http://xx.xx.xx.xx:9521/pce/ 
-
-refer REST.doc for more API calls
