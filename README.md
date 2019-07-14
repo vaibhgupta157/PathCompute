@@ -5,10 +5,13 @@
 PathCompute is developed on top of ODL to represent topology in UI based on information from Link-State database. It can be used for calculating constraints based LSPs for RSVP-TE and pushing those tunnels to Path Computation Client. It also exposes REST APIs for calculating IGP path between a pair of src and dest. 
 
 # PreRequisites:
+The app is developed using python and require following additional packages to work.\
 apt-get install python-pip\
 pip install flask requests
 
 # ODL Setup:
+This repo requires additional plugins for bgp, pcep and restconf in opendaylight. It is recommended to use Opendaylight Nitrogen release.
+
 cd karaf**\
 ./bin/karaf\
 feature:install odl-restconf odl-bgpcep-bgp odl-bgpcep-bgp-openconfig-state odl-bgpcep-pcep\
