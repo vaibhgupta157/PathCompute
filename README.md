@@ -32,3 +32,9 @@ http://xx.xx.xx.xx:9521/pce/
 
 ![PathCompute](https://user-images.githubusercontent.com/44111751/61218222-29513480-a72f-11e9-8554-a900a1c3cc4a.JPG)
 
+
+To start with add a bgp instance with link-state address-family in Opendaylight by clicking "Add Instance". Specify the local router-id  (which has to be an interface IP address on the linux machine on which Opendaylight is installed) and AS number. Once bgp instance is added, add atleast one bgp-ls peer by clicking "Add Peer". A BGP-LS peer is a router which is enabled with link-state address family and is part of IGP. The BGP session between Opendaylight and router(Peer) comes up after BGP protocol negotiation and status can be seen in UI. Opendaylight router-id should be reachable to router's BGP router-id. 
+
+Once LS-peer state is "Established" and Linkstate is "Active", IGP topology can be seen in right half. Topology captures point-to-point and broadcast network-type by highlighting with grey and blue color respectively. To have topology view in UI LS-peer should distribute IGP in BGP link-state.
+
+Tunnel Manager section manages RSVP-TE for the nodes in network which are configured as Path Computation Clients(PCCs). List of PCCs can be seen from Get PCCs and their established tunnels. A new tunnel can be pushed to any PCC by using "Create Tunnel". It lists all possible LSPs with given constraints and corresponding IGP and TE metrics. One of them can be pushed to PCC by clicking "Push LSP". The app considers only the interfaces which are enabled with traffic engineering for path calculation
