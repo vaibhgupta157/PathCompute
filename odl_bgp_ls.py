@@ -209,7 +209,7 @@ def get_topo_graph():
       '''
       bgp_instance = get_bgp_instances()
       if type(bgp_instance) == str:
-            return bgp_instance
+            return bgp_instance, bgp_instance, bgp_instance
       try:
             get_bgpls_url = "http://%s:%s/restconf/operational/network-topology:network-topology/topology/%s" % (ODL_IP, ODL_PORT, bgp_instance[0]['instance_name'])
       except IndexError:
