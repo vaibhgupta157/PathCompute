@@ -1,2 +1,1 @@
-special-vendored-path/* linguist-vendored
-*.js linguist-vendored=false
+*.* linguist-language=Python
