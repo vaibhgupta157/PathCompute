@@ -390,6 +390,8 @@ def possible_lsps(**vars):
             return graph  
       if not graph or type(graph) == str:
             return "Could not get link state information from ODL"
+      src_node_id = ''
+      dest_node_id = ''
       for node in node_list:
             if node.router_id == src_ip:
                   src_node_id = node.node_id
@@ -398,7 +400,11 @@ def possible_lsps(**vars):
             if node.router_id == pcc:
                   if not node.pcc:
                         return "Source node is not a pcc"
-      paths = get_all_paths(graph, src_node_id, dest_node_id, setup_priority, bandwidth, color_list, path_list=[])[:]
+      if src_node_id and dest_node_id:
+            paths = get_all_paths(graph, src_node_id, dest_node_id, setup_priority, bandwidth, color_list, path_list=[])[:]
+      else:
+            logging.error('Source or destination router_id is not found')
+            return 'Source or destination router_id is not found. Make sure source and destination IPs are IGP router-ids'
       if not len(paths):
             return "No path with given constraints"
       path_id = 1
