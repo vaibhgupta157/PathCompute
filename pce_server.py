@@ -132,19 +132,21 @@ def get_bgp_instances():
 def add_bgp_instances():
      instances = odl_bgp_ls.get_bgp_instances()
      bgp_instance = ''
+     if type(instances) == str and instances == "No BGP Instance configured in ODL":
+          vars = {}
+          vars["instance_name"] = str(request.form["instance_name"].strip())
+          vars["router_id"] = str(request.form["router_id"].strip())
+          vars["local_as"] = int(request.form["local_as"].strip())
+          response = odl_bgp_ls.add_bgp_instance(**vars)
+          flash(response)
+          return redirect(url_for('home'))
      if type(instances) == str:
           flash("Unable to get configuration from ODL")
           return redirect(url_for('home'))
      if instances:
           flash("Already one BGP Instance exists. Please delete the existing BGP instance first")
           return redirect(url_for('home'))
-     vars = {}
-     vars["instance_name"] = str(request.form["instance_name"].strip())
-     vars["router_id"] = str(request.form["router_id"].strip())
-     vars["local_as"] = int(request.form["local_as"].strip())
-     response = odl_bgp_ls.add_bgp_instance(**vars)
-     flash(response)
-     return redirect(url_for('home'))
+
 
 @app.route('/pce/bgp_instances/<instance_name>', methods=['POST'])
 def del_bgp_instances(instance_name):
@@ -259,7 +261,7 @@ def Topology_reset():
           flash("Create BGP Instance first")
           return redirect(url_for('home'))
      vars = {
-         "bgp_instance" : bgp_instance
+         "instance_name" : bgp_instance
      }
      response = odl_bgp_ls.topology_reset(**vars)
      flash(response)

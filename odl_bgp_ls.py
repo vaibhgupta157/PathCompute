@@ -17,10 +17,11 @@ logging.basicConfig(filename='logs/odl_bgp.log',level=logging.INFO)
 # Function for GET request
 def get_url(url):
       '''request url'''
+      logging.info("GET for URL: " + url)
       headers = {'Content-type': 'application/json'}
       try:
             response =  requests.get(url, headers = headers, auth = (ODL_USER, ODL_PASS), verify=False)
-            logging.info("Url get Status: %s" % response.status_code)
+            logging.info("Url GET Status: %s" % response.status_code)
             if response.status_code in [200, 204]:
                   return response.json()
             else:
@@ -33,8 +34,10 @@ def get_url(url):
 # Function for POST request
 def post_url(url, data):
       headers = {'Content-type': 'application/xml'}
+      logging.info("POST for URL: " + url)
       try:
             response =  requests.post(url, data = data, headers = headers, auth = (ODL_USER, ODL_PASS), verify=False)
+            logging.info("Url POST Status: %s" % response.status_code)
             if response.status_code in [200, 204] and (not response.text or 'error' not in str(response.text)):
                   return "successfully configured" 
             else:
@@ -46,9 +49,11 @@ def post_url(url, data):
 
 # Function for DELETE request
 def delete_url(url, data):
-      headers = {'Content-type': 'application/xml'} 
+      headers = {'Content-type': 'application/xml'}
+      logging.info("DELETE for URL: " + url) 
       try:
             response =  requests.delete(url, data = data, headers = headers, auth = (ODL_USER, ODL_PASS), verify=False)
+            logging.info("Url DELETE Status: %s" % response.status_code)
             if response.status_code in [200, 204] and (not response.text or 'error' not in str(response.text)):
                   return "successfully deleted" 
             else:
@@ -429,7 +434,7 @@ def get_bgp_instances():
       '''
       This function is used to get the details of BGP Instance configured in ODL.
       '''
-      bgp_instance_url = "http://%s:%s/restconf/operational/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols" % (ODL_IP, ODL_PORT)
+      bgp_instance_url = "http://%s:%s/restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols" % (ODL_IP, ODL_PORT)
       bgp_instances = get_url(bgp_instance_url)  
       if bgp_instances == "Error from ODL or incorrect API call":
             return "No BGP Instance configured in ODL" 
@@ -445,8 +450,8 @@ def get_bgp_instances():
                         continue      
                   dict = {}
                   dict['instance_name'] = instance['name']
-                  dict['router_id'] = instance['bgp-openconfig-extensions:bgp']['global']['state']['router-id']
-                  dict['AS'] = instance['bgp-openconfig-extensions:bgp']['global']['state']['as']    
+                  dict['router_id'] = instance['bgp-openconfig-extensions:bgp']['global']['config']['router-id']
+                  dict['AS'] = instance['bgp-openconfig-extensions:bgp']['global']['config']['as']    
                   instance_list.append(dict)
       return instance_list 
 
@@ -477,7 +482,7 @@ def del_bgp_instance(instance_name):
       Function to delete BGP Instance in ODL
       '''
       bgp_instance_url = "http://%s:%s/restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols" % (ODL_IP, ODL_PORT)
-      topology_url = "http://%s:%s/restconf/config/network-topology:network-topology/" % (ODL_IP, ODL_PORT)
+      topology_url = "http://%s:%s/restconf/config/network-topology:network-topology/topology/%s" % (ODL_IP, ODL_PORT, instance_name)
       vars = {}
       vars['instance_name'] = instance_name
       with open('jinja_templates/del_bgp_instance.j2') as f:
@@ -568,15 +573,18 @@ def topology_reset(**vars):
       '''
       To do a topology refresh in ODL. This is needed because sometimes ODL does get proper topology information
       '''
-      with open('jinja_templates/topo_reset.j2') as f:
+      with open('jinja_templates/add_topology.j2') as f:
             template = f.read()
       model = jinja2.Template(template)
-      topo_reset_config = model.render(vars) 
-      topo_reset_url = "http://%s:%s/restconf/config/network-topology:network-topology/" % (ODL_IP, ODL_PORT) 
-      response1 = delete_url(topo_reset_url, topo_reset_config)
-      response2 = post_url(topo_reset_url, topo_reset_config)
-      if 'ODL' in response1 or 'ODL' in response2: 
-            return response1 + " " + response2 + " Topology could not be reset"  
+      bgp_topology_config = model.render(vars) 
+      topo_delete_url = "http://%s:%s/restconf/config/network-topology:network-topology/topology/%s" % (ODL_IP, ODL_PORT, vars['instance_name']) 
+      topo_create_url = "http://%s:%s/restconf/config/network-topology:network-topology/" % (ODL_IP, ODL_PORT)
+      response1 = delete_url(topo_delete_url, bgp_topology_config)
+      if 'ODL' in response1:
+            return response1 + ". Topology could not be deleted. Check logs for more info."
+      response2 = post_url(topo_create_url, bgp_topology_config)
+      if 'ODL' in response2: 
+            return response2 + ". Topology could not be reset. Check logs for more info."  
       else:
             return "Topology has been reset"
 
