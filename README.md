@@ -13,7 +13,7 @@ pip install flask requests
 ```
 
 # ODL Setup:
-This repo requires additional plugins for BGP, PCEP and RESTCONF in [OpenDaylight](https://www.opendaylight.org/). It is recommended to use OpenDaylight Nitrogen release.
+This repo requires additional plugins for BGP, PCEP and RESTCONF in [OpenDaylight](https://www.opendaylight.org/). The repo is tested with OpenDaylight 0.7.3(Nitrogen) and 0.9.2(Fluorine-SR2) releases.
 
 ```
 cd karaf**
